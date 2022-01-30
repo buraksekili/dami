@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -22,22 +20,8 @@ var (
 	port int = 8001
 )
 
-func readConf(c *Conf) error {
-	b, err := ioutil.ReadFile("conf.json")
-	if err != nil {
-		return err
-	}
-	if err := json.Unmarshal(b, c); err != nil {
-		return err
-	}
-	return nil
-}
-
 func main() {
-	if err := readConf(&conf); err != nil {
-		log.Fatalf("cannot read conf.json, err: %v", err)
-	}
-
+	conf.Resp = "default-response"
 	http.HandleFunc("/api", HelloServer)
 	http.HandleFunc("/update", UpdateConfServer)
 	fmt.Println("running on ", port)
