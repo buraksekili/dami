@@ -1,5 +1,8 @@
-# This is an example .goreleaser.yml file with some sensible defaults.
-# Make sure to check the documentation at https://goreleaser.com
+release:
+  mode: keep-existing
+  extra_files:
+    - glob: ./test.yaml
+      name_template: res.yaml
 before:
   hooks:
     # You may remove this if you don't use go modules.
@@ -24,9 +27,6 @@ checksum:
   name_template: "checksums.txt"
 snapshot:
   name_template: "{{ incpatch .Version }}-next"
-includes:
-  - from_file:
-    path: ./test.yaml
 changelog:
   sort: asc
   filters:
